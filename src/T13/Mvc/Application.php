@@ -17,7 +17,7 @@ class Application
     public function __construct($config)
     {
         $this->config = [
-            'app_namespace' => 'App',
+            'app_namespace' => 'FirstApp',
             'dafault_action' => 'index',
             'dafault_controller' => 'Index',
         ];
@@ -37,23 +37,22 @@ class Application
          */
 
         // http://localhost/T13/FirstApp/123/
-        echo $_SERVER['PHP_SELF'] . "<br />";       // /T13/FirstApp/123/index.php
+        echo $_SERVER['PHP_SELF'] . "<br />";       // /T13/FirstApp/index.php
         echo $_SERVER['REQUEST_URI'] . "<br />";    // /T13/FirstApp/123/
 
         $request = new Request();
-        $request->
-
+        //$request->getBaseUrl();
+        //$request->getBasePath();
+        //$request->getPathInfo();
 
         // 2) Вторым делом выяснить какой контроллер и экшен нужно запускать, а также подходят ли кол-во параметров. переданные в строке запроса.
+        $arguments = [];
 
         $controller_name = $this->config['app_namespace'] . '\\Controller\\' . $this->config['dafault_controller'];
         $controller_action = $this->config['dafault_action'];
 
-        $arguments = [];
-
-        $controller = [$controller_name, $controller_action];
-        $response = call_user_func_array($controller, $arguments);
-        return $response;
+        $response = call_user_func_array([new $controller_name(), $controller_action], $arguments);
+        $response->send();
     }
 
     /**
@@ -61,6 +60,6 @@ class Application
      */
     public function __invoke()
     {
-        $this->run();
+        return $this->run();
     }
 }
