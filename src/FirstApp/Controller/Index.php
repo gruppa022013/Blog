@@ -12,6 +12,6 @@ class Index extends Controller
      */
     public function index()
     {
-        return new Response('Main page');
+        return new Response('Эта строка выводится из: <b>' . __FILE__ . '</b>' . ': ' . __LINE__);
     }
 }

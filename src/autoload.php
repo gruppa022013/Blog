@@ -4,7 +4,6 @@
  */
 function autoload($class)
 {
-    // @todo тут надо описать автозагрузку с поддержкой пространств имён.
     require_once ('src/'.$class.'.php');
 }
 
