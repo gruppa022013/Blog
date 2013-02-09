@@ -21,6 +21,11 @@ class Blog extends Controller
      */
     public function show($id)
     {
+        $post = $this->getModel('FirstApp\Model\BlogPost')->find($id);
 
+        return $this->render('blog_post.html.php', [
+            'title' => $post->getTitle(),
+            'content' => $post->getContent()
+        ]);
     }
 }
