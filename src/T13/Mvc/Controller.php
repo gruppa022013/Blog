@@ -4,7 +4,7 @@ namespace T13\Mvc;
 
 use T13\Http\Response;
 
-class Controller implements ControllerInterface
+abstract class Controller implements ControllerInterface
 {
     protected $container;
 
@@ -28,5 +28,16 @@ class Controller implements ControllerInterface
     final public function setContainer($container)
     {
         $this->container = $container;
+    }
+
+    /**
+     * Возвражает объект модели из который можно сделать выборки данных.
+     */
+    public function getModel($class)
+    {
+        $model = new $class();
+        $model->setContainer($this->container);
+
+        return $model;
     }
 }
